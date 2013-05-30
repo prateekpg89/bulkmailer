@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bulk Email Sender</title>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet"></em>
+<em><link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<head>
+<script>
+function validateForm(form)
+{
+	var x=document.forms["emailsend"]["to"].value;
+	var atpos=x.indexOf("@");
+	var dotpos=x.lastIndexOf(".");
+	if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+  	{
+		form.to.focus();
+  		alert("Not a valid To e-mail address");
+  		return false;
+  	}
+	var x=document.forms["emailsend"]["from"].value;
+	var atpos=x.indexOf("@");
+	var dotpos=x.lastIndexOf(".");
+	if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+  	{
+		form.from.focus();
+  		alert("Not a valid From e-mail address");
+  		return false;
+  	}
+	var x=document.forms["emailsend"]["sub"].value;
+	if(x=="" || x==null){
+		if(confirm('Send mail without subject?')){
+			return true;
+		}else {
+			form.sub.focus();
+			return false;
+		}
+	}
+	var x=document.forms["emailsend"]["msg"].value;
+	if(x=="" || x==null){
+		if(confirm('Send mail without message body?')){
+			return true;
+		}else {
+			form.msg.focus();
+			return false;
+		}
+	}
+	
+	return true;
+}
+</script>
+<body>
+<div class="container">
+<legend>Bulk Email Sender</legend>
+<div class="well">
+      <form id="emailsend" class="form-horizontal" method="post" action="smail.php" onsubmit="return validateForm(this)">
+        <legend>Compose</legend>
+        <div class="control-group ">
+            <label class="control-label">To</label>
+            <div class="controls">
+                <div class="input-prepend">
+                <span class="add-on"><i class="icon-envelope"></i></span>
+                    <input type="text" class="input-xlarge" id="to" name="to" placeholder="Recipients" />
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">From</label>
+            <div class="controls">
+                <div class="input-prepend">
+                <span class="add-on"><i class="icon-envelope"></i></span>
+                    <input type="text" class="input-xlarge" id="from" name="from" placeholder="Sender" />
+                </div>
+            </div>
+        </div>
+	<div class="control-group">
+		<label class="control-label">Subject</label>
+		<div class="controls">
+			<div class="input-prepend">
+				<span class="add-on"><i class="icon-edit"></i></span>
+        			<input class="span3" id="sub" name="sub" type="text" placeholder="Subject"/>
+			</div>
+		</div>
+	</div>
+	<div class="control-group">
+            <label class="control-label">Message</label>
+            <div class="controls">
+              <textarea class="xxlarge" id="msg" name="msg" rows="3"></textarea>
+              <span class="help-block">
+                Just write body of message, leave greeting on me :).
+              </span>
+            </div>
+	</div>
+        <div class="control-group">
+        <label class="control-label"></label>
+          <div class="controls">
+           <button type="submit" class="btn btn-success" >Send</button>
+          </div>
+    	</div>
+      </form>
+   </div>
+</div>
+</body>
+</html>
